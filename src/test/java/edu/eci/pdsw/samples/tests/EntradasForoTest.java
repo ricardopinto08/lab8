@@ -79,7 +79,7 @@ public class EntradasForoTest {
     @Before
     public void setUp() {
         principal=ServiciosForo.getInstance();
-        us = new Usuario("pepito35.com", "Pepito");
+        us = new Usuario("pepitoFULLHDRESUBIDOESPANOL4K.com", "Pepito");
         ef = new EntradaForo(us, "N", "E", new Date(new java.util.Date().getTime()));
         try {
             principal.registrarUsuario(us);
