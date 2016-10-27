@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head></h:head>
+
+    <h:body>
+        <h:form id="total">
+            <h:outputText value="#{Foros.foroSelection.titulo}" style="font-size-adjust: 4" ></h:outputText> 
+            <br></br>
+            <h:outputText value="Autor: #{Foros.foroSelection.autor.nombre}" style="color: gray " ></h:outputText>
+            <br></br>
+            <h:outputText value="#{Foros.foroSelection.fechayHora}" style="color: gray" ></h:outputText>
+            <br></br>
+            <h:outputText value="#{Foros.foroSelection.comentario}"></h:outputText>
+            <p:dataTable id="tablaPrincipal" var="ans" value ="#{Foros.foroSelection.respuestasArreglo}">
+                <p:column headerText="Autor">
+                    <h:outputText value="#{ans.autor.nombre}" />
+                </p:column>
+                <p:column headerText="Contenido">
+                    <h:outputText value="#{ans.contenido}" />
+                </p:column>
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{ans.fechayHora}" />
+                </p:column>
+            </p:dataTable>
+            <h:panelGrid columns="2" cellpadding="4">
+                <p:outputLabel for="name" value="Nombre del autor: " />
+                <p:inputText id="name" value="#{Foros.nombreTemporal}"/>
+
+                <p:outputLabel for="email" value="Email del autor: " />
+                <p:inputText id="email" value="#{Foros.emailTemporal}"/>
+                
+                <p:outputLabel for="Comment" value="Comentario: " />
+                <p:inputText id="Comment" value="#{Foros.comenTemporal}"/>
+                <p:commandButton update="tablaPrincipal" value="Comentar" actionListener="#{Foros.registrarNuevoComentarioForo(Foros.foroSelection.identificador)}" >
+                    
+                </p:commandButton>
+            </h:panelGrid>
+            <p:commandButton action="registroentradaforo" icon="ui-icon-arrowrefresh-1-w" title="Volver a foros"  value="Volver a foros" actionListener="#{Foros.limpiar()}">
+            </p:commandButton>
+        </h:form>
+        
+        
+    </h:body>
+
+</html>

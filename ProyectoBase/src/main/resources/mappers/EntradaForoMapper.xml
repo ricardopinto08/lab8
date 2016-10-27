@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.EntradaForoMapper">
+	
+      
+    <resultMap type='EntradaForo' id='EntradaForoResult'>
+        <id property='identificador' column='id'/>
+        <result property='fechayHora' column='fecha_hora'/>
+        <result property='titulo' column='contenido'/>
+        <result property='comentario' column='contenido'/>
+        <association property="autor" javaType="Usuario" resultMap="UsuarioResult" columnPrefix="autEf_"></association>
+        <collection property='respuestas' ofType='Comentario' columnPrefix="comen_" resultMap="ComentarioResult"></collection>
+              
+    </resultMap>
+
+    <resultMap type='Comentario' id='ComentarioResult'>
+        <id property='id' column='id'/>
+        <result property='fechayHora' column='fecha_hora'/>
+        <result property='contenido' column='contenido'/> 
+         <association property="autor" javaType="Usuario" resultMap="UsuarioResult" columnPrefix="autCo_" ></association>        
+    </resultMap>
+
+    <resultMap type='Usuario' id='UsuarioResult'>
+        <id property='email' column='email'/>
+        <result property='nombre' column='nombre'/>       
+    </resultMap>
+  	
+    <select id="getEntradasForo" resultMap="EntradaForoResult">
+    select ef.id, ef.fecha_hora, ef.contenido as contenido, cm.id as comen_id, cm.fecha_hora as comen_fecha_hora, cm.contenido as comen_contenido, autor.nombre as autEf_nombre, autor.email as autEf_email, autorcom.nombre as comen_autCo_nombre,  autorcom.email as comen_autCo_email
+    from ENTRADAS_FOROS as ef 
+    LEFT JOIN COMENTARIOS as cm ON ef.`id` = cm.`ENTRADAS_FOROS_id` 
+    LEFT JOIN USUARIOS as autor ON autor.email=ef.USUARIOS_email
+    LEFT JOIN USUARIOS as autorcom ON autorcom.email=cm.USUARIOS_email
+    </select>
+    
+    <select id="getEntradaForo" resultMap="EntradaForoResult" parameterType="map">
+    select ef.id, ef.fecha_hora, ef.contenido as contenido, cm.id as comen_id, cm.fecha_hora as comen_fecha_hora, cm.contenido as comen_contenido, autor.nombre as autEf_nombre, autor.email as autEf_email, autorcom.nombre as comen_autCo_nombre,  autorcom.email as comen_autCo_email
+    from ENTRADAS_FOROS as ef 
+    LEFT JOIN COMENTARIOS as cm ON ef.`id` = cm.`ENTRADAS_FOROS_id` 
+    LEFT JOIN USUARIOS as autor ON autor.email=ef.USUARIOS_email
+    LEFT JOIN USUARIOS as autorcom ON autorcom.email=cm.USUARIOS_email
+    WHERE ef.`id`=#{identificador}
+    </select>
+    
+     <insert id="agregarComentarioAEntradaForo" parameterType="map">
+        
+    INSERT INTO COMENTARIOS(contenido,ENTRADAS_FOROS_id,USUARIOS_email) values (#{comentario.contenido},#{identificador},#{comentario.autor.email});
+        
+    </insert>
+    
+    <insert id="insertarEntradaForo" parameterType="map">
+        
+    INSERT INTO ENTRADAS_FOROS(contenido,USUARIOS_email) values (#{contenido},#{email});
+        
+    </insert>
+    
+</mapper>
