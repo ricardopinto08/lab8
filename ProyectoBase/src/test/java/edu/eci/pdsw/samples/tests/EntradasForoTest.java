@@ -18,6 +18,7 @@ package edu.eci.pdsw.samples.tests;
 
 import edu.eci.pdsw.samples.entities.*;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosForos;
+import edu.eci.pdsw.samples.services.ServiciosForo;
 import edu.eci.pdsw.samples.services.ServiciosForoDAOStub;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,18 +69,22 @@ import static org.junit.Assert.*;
  */
 
 public class EntradasForoTest {
-    ServiciosForoDAOStub principal;
+    ServiciosForo principal;
     EntradaForo ef;
     Usuario us;
     
     public EntradasForoTest() {
     }
-    /*
+    
     @Before
     public void setUp() {
-        principal = new ServiciosForoDAOStub(2);
-        us = new Usuario("pepitoperez@gmail.com", "Pepito Perez");
-        ef = new EntradaForo(12, us, "Nueva entrada", "Entrada correcta", java.sql.Date.valueOf("2010-03-01"));
+        principal=ServiciosForo.getInstance();
+        us = new Usuario("pepito35.com", "Pepito");
+        ef = new EntradaForo(us, "N", "E", new Date(new java.util.Date().getTime()));
+        try {
+            principal.registrarUsuario(us);
+        } catch (ExcepcionServiciosForos ex) {
+        }
     }
     
     
@@ -91,9 +96,9 @@ public class EntradasForoTest {
     @Test
     public void consultarEntradaConIdInexistente() throws ExcepcionServiciosForos{
         try{
-            principal.consultarEntradaForo(512);
+            principal.consultarEntradaForo(5121234);
         }catch(Exception e){
-            assertEquals(e.getMessage(), "Entrada a foro inexistente:512");
+            assertEquals(e.getMessage(), "Entrada a foro inexistente:5121234");
         }
     }
     
@@ -102,5 +107,5 @@ public class EntradasForoTest {
         principal.consultarEntradasForo();
     }
     
-    */
+    
 }

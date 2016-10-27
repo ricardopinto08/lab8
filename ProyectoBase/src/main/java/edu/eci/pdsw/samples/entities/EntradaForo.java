@@ -50,7 +50,7 @@ public class EntradaForo implements Serializable{
     }
     
     
-    public EntradaForo(int identificador, Usuario autor, String comentario, String titulo, Date fechayHora) {
+    public EntradaForo(Usuario autor, String comentario, String titulo, Date fechayHora) {
         this.identificador = identificador;
         this.autor = autor;
         this.comentario = comentario;

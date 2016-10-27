@@ -130,6 +130,7 @@ public class RegistroForosBean implements Serializable{
     public void registrarNuevoComentarioForo(int idForo) throws ExcepcionServiciosForos{
         if(!(emailTemporal.equals("") && nombreTemporal.equals("") && comenTemporal.equals(""))){
             Usuario user = new Usuario(emailTemporal,nombreTemporal);
+            
             try{
                 foros.registrarUsuario(user);
             }catch(Exception e){
@@ -148,7 +149,7 @@ public class RegistroForosBean implements Serializable{
                 foros.registrarUsuario(us);
             }catch(Exception e){
             }
-            foros.registrarNuevaEntradaForo(new EntradaForo(0, us, CommentUs, Title,new Date(new java.util.Date().getTime())));
+            foros.registrarNuevaEntradaForo(new EntradaForo( us, CommentUs, Title,new Date(new java.util.Date().getTime())));
             restablecerVar();
         }
        

@@ -20,7 +20,9 @@ import edu.eci.pdsw.samples.entities.Comentario;
 import edu.eci.pdsw.samples.entities.EntradaForo;
 import edu.eci.pdsw.samples.entities.Usuario;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosForos;
+import edu.eci.pdsw.samples.services.ServiciosForo;
 import edu.eci.pdsw.samples.services.ServiciosForoDAOStub;
+import java.sql.Date;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -63,25 +65,32 @@ import static org.junit.Assert.*;
  * Utilizar una fecha incoherente
  */
 public class ComentariosTest {
-    ServiciosForoDAOStub principal;
+    ServiciosForo principal;
     EntradaForo ef;
     Usuario us;
+    
     public ComentariosTest() {
-    }/*
-    @Before
-    public void setUp() throws ExcepcionServiciosForos {
-        principal = new ServiciosForoDAOStub(2);
-        us = new Usuario("ElOsCarComuna13@gmail.com", "Oscar Alba");
-        ef = new EntradaForo(12, us, "dfasdjfhl", "sdfjaskdfh", java.sql.Date.valueOf("2011-12-01"));
-        principal.registrarNuevaEntradaForo(ef);
     }
     
+    @Before
+    public void setUp() {
+        principal=ServiciosForo.getInstance();
+        us = new Usuario("pepito39.com", "PepaPig");
+        ef = new EntradaForo(us, "Nasfd", "Eerq", new Date(new java.util.Date().getTime()));
+        try {
+            principal.registrarUsuario(us);
+            principal.registrarNuevaEntradaForo(ef);
+        } catch (ExcepcionServiciosForos ex) {
+        }
+        
+    }
+    /*
     @Test
     public void registroComentarioTest() throws ExcepcionServiciosForos{
         Comentario c= new Comentario(us, "El rappi de hoy fue bueno : 6 Iphone 7 de 128GB y 3 Samsung S7 edge.", java.sql.Date.valueOf("2012-01-11"));
         principal.agregarRespuestaForo(ef.getIdentificador(),c);
     }
-    
+    */
     @Test
     public void registroNoComentarioTest() throws ExcepcionServiciosForos{
         Comentario c= new Comentario(us, "El rappi de hoy fue bueno : 6 Iphone 7 de 128GB y 3 Samsung S7 edge.", java.sql.Date.valueOf("2012-01-11"));
@@ -103,5 +112,5 @@ public class ComentariosTest {
          
     }
     
-    */
+    
 }
