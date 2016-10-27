@@ -98,7 +98,7 @@ public abstract class ServiciosForo implements Serializable {
     
     /**
      * Ingresar un usuario 
-     * @param email el correo con el cual el usuario se registrara
+     * @param us el usuario que se registrara
      * @throws ExcepcionServiciosForos si ya hay usuario asociado al correo
      * ingresado
      */
