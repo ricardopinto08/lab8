@@ -75,7 +75,7 @@ public class ComentariosTest {
     @Before
     public void setUp() {
         principal=ServiciosForo.getInstance();
-        us = new Usuario("pepito39.com", "PepaPig");
+        us = new Usuario("pepitoMEGA-LINKRESUBIDOPACKESPANIOL.com", "PepaPig");
         ef = new EntradaForo(us, "Nasfd", "Eerq", new Date(new java.util.Date().getTime()));
         try {
             principal.registrarUsuario(us);
