@@ -10,7 +10,7 @@
     <name>tdd-webapp-foros-base-nodb</name>
 
     <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <endorsed.dir>${project.build.directory}/dependency</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
